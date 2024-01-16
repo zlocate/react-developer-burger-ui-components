@@ -20,7 +20,7 @@ import { EmailInput }  from '../';
         const onChange = (e) => {
             setValue(e.target.value);
         };
-        return <EmailInput onChange={onChange} value={value} name={'email'} />;
+        return <EmailInput onChange={onChange} value={value} name={'email'} checkValid={(isValid) => console.log(isValid)} />;
    }}
 </Playground>
 

@@ -11,11 +11,15 @@ export const EmailInput = ({
     onChange,
     name,
     size = 'default',
+    errorText = 'Ой, произошла ошибка!',
+    checkValid,
 }: {
     value: string;
     name: string;
     size?: 'default' | 'small';
+    errorText?: string;
     onChange(e: React.ChangeEvent<HTMLInputElement>): void;
+    checkValid?: (isValid: boolean) => void;
 }) => {
     const [fieldDisabled, setDisabled] = useState(true);
 
@@ -29,7 +33,9 @@ export const EmailInput = ({
     };
 
     const validateField = (value: string) => {
-        setError(!validateEmail(value));
+        const isValid = validateEmail(value);
+        setError(!isValid);
+        checkValid?.(isValid);
     };
 
     const onFocus = () => {
@@ -44,6 +50,7 @@ export const EmailInput = ({
         }
         setDisabled(true);
     };
+
     return (
         <Input
             type="email"
@@ -58,7 +65,7 @@ export const EmailInput = ({
             error={error}
             disabled={fieldDisabled}
             onIconClick={onIconClick}
-            errorText={'Ой, произошла ошибка!'}
+            errorText={errorText}
             size={size}
         />
     );

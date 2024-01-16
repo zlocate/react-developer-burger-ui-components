@@ -6,11 +6,15 @@ export const PasswordInput = ({
     onChange,
     name,
     size,
+    errorText = 'Некорректный пароль',
+    checkValid,
 }: {
     value: string;
     name: string;
     size?: 'default' | 'small';
+    errorText?: string;
     onChange(e: React.ChangeEvent<HTMLInputElement>): void;
+    checkValid?: (isValid: boolean) => void;
 }) => {
     const [visible, setVisible] = useState(false);
 
@@ -25,6 +29,7 @@ export const PasswordInput = ({
 
     const validateField = (value: string) => {
         setError(value.length < 6);
+        checkValid?.(value.length >= 6);
     };
 
     const onFocus = () => {
@@ -53,7 +58,7 @@ export const PasswordInput = ({
             name={name}
             error={error}
             onIconClick={onIconClick}
-            errorText={'Некорректный пароль'}
+            errorText={errorText}
             size={size === 'small' ? 'small' : 'default'}
         />
     );
