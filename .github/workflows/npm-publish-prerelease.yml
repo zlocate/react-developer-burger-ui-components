@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
-          scope: '@ya.praktikum'
+          scope: '@zlden'
       - run: npm install
       - run: npm run build
       - run: npm publish --tag beta
